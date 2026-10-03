@@ -1,15 +1,15 @@
 resource "aws_instance" "devops-school-level3" {
-ami = var.ami_id
-instance_type = var.ec2_type
-subnet_id = var.subnet_id
-key_name = var.keypair
+  ami           = var.ami_id
+  instance_type = var.ec2_type
+  subnet_id     = var.subnet_id
+  key_name      = var.keypair
 
-vpc_security_group_ids = [var.main_sg_id]
+  vpc_security_group_ids = [var.main_sg_id]
 
-user_data = file("user-data.web.sh")
-user_data_replace_on_change = true
+  user_data                   = file("user-data.web.sh")
+  user_data_replace_on_change = true
 
-tags = {
-Name = var.ec2_name
-}
+  tags = {
+    Name = var.ec2_name
+  }
 }
