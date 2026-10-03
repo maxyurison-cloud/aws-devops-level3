@@ -1,0 +1,27 @@
+name: QA - Terraform checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  terraform-qa:
+    name: Terraform format and validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Check formatting
+        run: terraform fmt -check -diff
+
+      - name: Init (without backend)
+        run: terraform init -backend=false
+
+      - name: Validate
+        run: terraform validate
